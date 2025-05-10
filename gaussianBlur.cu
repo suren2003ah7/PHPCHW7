@@ -2,15 +2,13 @@
 #include <stdlib.h>
 #include <time.h>
 
-__constant__ float weights[3];
-
 __global__ void gaussianBlur(float* data, int N)
 {
     int idx = blockDim.x * blockIdx.x + threadIdx.x;
 
     if (idx >= 1 && idx <= N - 2)
     {
-        data[idx] = weights[0] * data[idx - 1] + weights[1] * data[idx] + weights[2] * data[idx + 1];
+        data[idx] = 0.25 * data[idx - 1] + 0.5 * data[idx] + 0.25 * data[idx + 1];
     }
 }
 
@@ -24,10 +22,6 @@ int main()
 
     dim3 block (32);
     dim3 grid ((length + block.x - 1) / block.x);
-
-    float h_weights[3] = {0.25, 0.5, 0.25}; // change to {0.33, 0.33, 0.33} for uniform case
-
-    cudaMemcpyToSymbol(weights, &h_weights, sizeof(float) * 3);
 
     float* h_data = (float*) malloc(size);
 
