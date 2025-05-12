@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-__constant__ char codonMap[2048];
+__constant__ char codonMap[421];
 
 __global__ void proteinFromDnaExtractor(char* rna, char* protein, long N, int* stopIndex)
 {
@@ -12,7 +12,7 @@ __global__ void proteinFromDnaExtractor(char* rna, char* protein, long N, int* s
     if (idx >= N)
         return;
 
-    char result = codonMap[1 * rna[idx] + 4 * rna[idx + 1] + 16 * rna[idx + 2]];
+    char result = codonMap[1 * rna[idx] + 4 * rna[idx + 1] + 16 * rna[idx + 2] - 1365];
     __syncthreads();
 
     if (result == '_')
@@ -62,89 +62,89 @@ int main()
         }
     }
 
-    char h_codonMap[2048] = {0};
+    char h_codonMap[421] = {0};
 
-    h_codonMap[1 * 'U' + 4 * 'U' + 16 * 'U'] = 'F';
-    h_codonMap[1 * 'U' + 4 * 'U' + 16 * 'C'] = 'F';
-    h_codonMap[1 * 'U' + 4 * 'U' + 16 * 'A'] = 'L';
-    h_codonMap[1 * 'U' + 4 * 'U' + 16 * 'G'] = 'L';
+    h_codonMap[1 * 'U' + 4 * 'U' + 16 * 'U' - 1365] = 'F';
+    h_codonMap[1 * 'U' + 4 * 'U' + 16 * 'C' - 1365] = 'F';
+    h_codonMap[1 * 'U' + 4 * 'U' + 16 * 'A' - 1365] = 'L';
+    h_codonMap[1 * 'U' + 4 * 'U' + 16 * 'G' - 1365] = 'L';
 
-    h_codonMap[1 * 'U' + 4 * 'C' + 16 * 'U'] = 'S';
-    h_codonMap[1 * 'U' + 4 * 'C' + 16 * 'C'] = 'S';
-    h_codonMap[1 * 'U' + 4 * 'C' + 16 * 'A'] = 'S';
-    h_codonMap[1 * 'U' + 4 * 'C' + 16 * 'G'] = 'S';
+    h_codonMap[1 * 'U' + 4 * 'C' + 16 * 'U' - 1365] = 'S';
+    h_codonMap[1 * 'U' + 4 * 'C' + 16 * 'C' - 1365] = 'S';
+    h_codonMap[1 * 'U' + 4 * 'C' + 16 * 'A' - 1365] = 'S';
+    h_codonMap[1 * 'U' + 4 * 'C' + 16 * 'G' - 1365] = 'S';
 
-    h_codonMap[1 * 'U' + 4 * 'A' + 16 * 'U'] = 'Y';
-    h_codonMap[1 * 'U' + 4 * 'A' + 16 * 'C'] = 'Y';
-    h_codonMap[1 * 'U' + 4 * 'A' + 16 * 'A'] = '_';
-    h_codonMap[1 * 'U' + 4 * 'A' + 16 * 'G'] = '_';
+    h_codonMap[1 * 'U' + 4 * 'A' + 16 * 'U' - 1365] = 'Y';
+    h_codonMap[1 * 'U' + 4 * 'A' + 16 * 'C' - 1365] = 'Y';
+    h_codonMap[1 * 'U' + 4 * 'A' + 16 * 'A' - 1365] = '_';
+    h_codonMap[1 * 'U' + 4 * 'A' + 16 * 'G' - 1365] = '_';
 
-    h_codonMap[1 * 'U' + 4 * 'G' + 16 * 'U'] = 'C';
-    h_codonMap[1 * 'U' + 4 * 'G' + 16 * 'C'] = 'C';
-    h_codonMap[1 * 'U' + 4 * 'G' + 16 * 'A'] = '_';
-    h_codonMap[1 * 'U' + 4 * 'G' + 16 * 'G'] = 'W';
+    h_codonMap[1 * 'U' + 4 * 'G' + 16 * 'U' - 1365] = 'C';
+    h_codonMap[1 * 'U' + 4 * 'G' + 16 * 'C' - 1365] = 'C';
+    h_codonMap[1 * 'U' + 4 * 'G' + 16 * 'A' - 1365] = '_';
+    h_codonMap[1 * 'U' + 4 * 'G' + 16 * 'G' - 1365] = 'W';
 
-    h_codonMap[1 * 'C' + 4 * 'U' + 16 * 'U'] = 'L';
-    h_codonMap[1 * 'C' + 4 * 'U' + 16 * 'C'] = 'L';
-    h_codonMap[1 * 'C' + 4 * 'U' + 16 * 'A'] = 'L';
-    h_codonMap[1 * 'C' + 4 * 'U' + 16 * 'G'] = 'L';
+    h_codonMap[1 * 'C' + 4 * 'U' + 16 * 'U' - 1365] = 'L';
+    h_codonMap[1 * 'C' + 4 * 'U' + 16 * 'C' - 1365] = 'L';
+    h_codonMap[1 * 'C' + 4 * 'U' + 16 * 'A' - 1365] = 'L';
+    h_codonMap[1 * 'C' + 4 * 'U' + 16 * 'G' - 1365] = 'L';
 
-    h_codonMap[1 * 'C' + 4 * 'C' + 16 * 'U'] = 'P';
-    h_codonMap[1 * 'C' + 4 * 'C' + 16 * 'C'] = 'P';
-    h_codonMap[1 * 'C' + 4 * 'C' + 16 * 'A'] = 'P';
-    h_codonMap[1 * 'C' + 4 * 'C' + 16 * 'G'] = 'P';
+    h_codonMap[1 * 'C' + 4 * 'C' + 16 * 'U' - 1365] = 'P';
+    h_codonMap[1 * 'C' + 4 * 'C' + 16 * 'C' - 1365] = 'P';
+    h_codonMap[1 * 'C' + 4 * 'C' + 16 * 'A' - 1365] = 'P';
+    h_codonMap[1 * 'C' + 4 * 'C' + 16 * 'G' - 1365] = 'P';
 
-    h_codonMap[1 * 'C' + 4 * 'A' + 16 * 'U'] = 'H';
-    h_codonMap[1 * 'C' + 4 * 'A' + 16 * 'C'] = 'H';
-    h_codonMap[1 * 'C' + 4 * 'A' + 16 * 'A'] = 'Q';
-    h_codonMap[1 * 'C' + 4 * 'A' + 16 * 'G'] = 'Q';
+    h_codonMap[1 * 'C' + 4 * 'A' + 16 * 'U' - 1365] = 'H';
+    h_codonMap[1 * 'C' + 4 * 'A' + 16 * 'C' - 1365] = 'H';
+    h_codonMap[1 * 'C' + 4 * 'A' + 16 * 'A' - 1365] = 'Q';
+    h_codonMap[1 * 'C' + 4 * 'A' + 16 * 'G' - 1365] = 'Q';
 
-    h_codonMap[1 * 'C' + 4 * 'G' + 16 * 'U'] = 'R';
-    h_codonMap[1 * 'C' + 4 * 'G' + 16 * 'C'] = 'R';
-    h_codonMap[1 * 'C' + 4 * 'G' + 16 * 'A'] = 'R';
-    h_codonMap[1 * 'C' + 4 * 'G' + 16 * 'G'] = 'R';
+    h_codonMap[1 * 'C' + 4 * 'G' + 16 * 'U' - 1365] = 'R';
+    h_codonMap[1 * 'C' + 4 * 'G' + 16 * 'C' - 1365] = 'R';
+    h_codonMap[1 * 'C' + 4 * 'G' + 16 * 'A' - 1365] = 'R';
+    h_codonMap[1 * 'C' + 4 * 'G' + 16 * 'G' - 1365] = 'R';
 
-    h_codonMap[1 * 'A' + 4 * 'U' + 16 * 'U'] = 'I';
-    h_codonMap[1 * 'A' + 4 * 'U' + 16 * 'C'] = 'I';
-    h_codonMap[1 * 'A' + 4 * 'U' + 16 * 'A'] = 'I';
-    h_codonMap[1 * 'A' + 4 * 'U' + 16 * 'G'] = 'M';
+    h_codonMap[1 * 'A' + 4 * 'U' + 16 * 'U' - 1365] = 'I';
+    h_codonMap[1 * 'A' + 4 * 'U' + 16 * 'C' - 1365] = 'I';
+    h_codonMap[1 * 'A' + 4 * 'U' + 16 * 'A' - 1365] = 'I';
+    h_codonMap[1 * 'A' + 4 * 'U' + 16 * 'G' - 1365] = 'M';
 
-    h_codonMap[1 * 'A' + 4 * 'C' + 16 * 'U'] = 'T';
-    h_codonMap[1 * 'A' + 4 * 'C' + 16 * 'C'] = 'T';
-    h_codonMap[1 * 'A' + 4 * 'C' + 16 * 'A'] = 'T';
-    h_codonMap[1 * 'A' + 4 * 'C' + 16 * 'G'] = 'T';
+    h_codonMap[1 * 'A' + 4 * 'C' + 16 * 'U' - 1365] = 'T';
+    h_codonMap[1 * 'A' + 4 * 'C' + 16 * 'C' - 1365] = 'T';
+    h_codonMap[1 * 'A' + 4 * 'C' + 16 * 'A' - 1365] = 'T';
+    h_codonMap[1 * 'A' + 4 * 'C' + 16 * 'G' - 1365] = 'T';
 
-    h_codonMap[1 * 'A' + 4 * 'A' + 16 * 'U'] = 'N';
-    h_codonMap[1 * 'A' + 4 * 'A' + 16 * 'C'] = 'N';
-    h_codonMap[1 * 'A' + 4 * 'A' + 16 * 'A'] = 'K';
-    h_codonMap[1 * 'A' + 4 * 'A' + 16 * 'G'] = 'K';
+    h_codonMap[1 * 'A' + 4 * 'A' + 16 * 'U' - 1365] = 'N';
+    h_codonMap[1 * 'A' + 4 * 'A' + 16 * 'C' - 1365] = 'N';
+    h_codonMap[1 * 'A' + 4 * 'A' + 16 * 'A' - 1365] = 'K';
+    h_codonMap[1 * 'A' + 4 * 'A' + 16 * 'G' - 1365] = 'K';
 
-    h_codonMap[1 * 'A' + 4 * 'G' + 16 * 'U'] = 'S';
-    h_codonMap[1 * 'A' + 4 * 'G' + 16 * 'C'] = 'S';
-    h_codonMap[1 * 'A' + 4 * 'G' + 16 * 'A'] = 'R';
-    h_codonMap[1 * 'A' + 4 * 'G' + 16 * 'G'] = 'R';
+    h_codonMap[1 * 'A' + 4 * 'G' + 16 * 'U' - 1365] = 'S';
+    h_codonMap[1 * 'A' + 4 * 'G' + 16 * 'C' - 1365] = 'S';
+    h_codonMap[1 * 'A' + 4 * 'G' + 16 * 'A' - 1365] = 'R';
+    h_codonMap[1 * 'A' + 4 * 'G' + 16 * 'G' - 1365] = 'R';
 
-    h_codonMap[1 * 'G' + 4 * 'U' + 16 * 'U'] = 'V';
-    h_codonMap[1 * 'G' + 4 * 'U' + 16 * 'C'] = 'V';
-    h_codonMap[1 * 'G' + 4 * 'U' + 16 * 'A'] = 'V';
-    h_codonMap[1 * 'G' + 4 * 'U' + 16 * 'G'] = 'V';
+    h_codonMap[1 * 'G' + 4 * 'U' + 16 * 'U' - 1365] = 'V';
+    h_codonMap[1 * 'G' + 4 * 'U' + 16 * 'C' - 1365] = 'V';
+    h_codonMap[1 * 'G' + 4 * 'U' + 16 * 'A' - 1365] = 'V';
+    h_codonMap[1 * 'G' + 4 * 'U' + 16 * 'G' - 1365] = 'V';
 
-    h_codonMap[1 * 'G' + 4 * 'C' + 16 * 'U'] = 'A';
-    h_codonMap[1 * 'G' + 4 * 'C' + 16 * 'C'] = 'A';
-    h_codonMap[1 * 'G' + 4 * 'C' + 16 * 'A'] = 'A';
-    h_codonMap[1 * 'G' + 4 * 'C' + 16 * 'G'] = 'A';
+    h_codonMap[1 * 'G' + 4 * 'C' + 16 * 'U' - 1365] = 'A';
+    h_codonMap[1 * 'G' + 4 * 'C' + 16 * 'C' - 1365] = 'A';
+    h_codonMap[1 * 'G' + 4 * 'C' + 16 * 'A' - 1365] = 'A';
+    h_codonMap[1 * 'G' + 4 * 'C' + 16 * 'G' - 1365] = 'A';
 
-    h_codonMap[1 * 'G' + 4 * 'A' + 16 * 'U'] = 'D';
-    h_codonMap[1 * 'G' + 4 * 'A' + 16 * 'C'] = 'D';
-    h_codonMap[1 * 'G' + 4 * 'A' + 16 * 'A'] = 'E';
-    h_codonMap[1 * 'G' + 4 * 'A' + 16 * 'G'] = 'E';
+    h_codonMap[1 * 'G' + 4 * 'A' + 16 * 'U' - 1365] = 'D';
+    h_codonMap[1 * 'G' + 4 * 'A' + 16 * 'C' - 1365] = 'D';
+    h_codonMap[1 * 'G' + 4 * 'A' + 16 * 'A' - 1365] = 'E';
+    h_codonMap[1 * 'G' + 4 * 'A' + 16 * 'G' - 1365] = 'E';
 
-    h_codonMap[1 * 'G' + 4 * 'G' + 16 * 'U'] = 'G';
-    h_codonMap[1 * 'G' + 4 * 'G' + 16 * 'C'] = 'G';
-    h_codonMap[1 * 'G' + 4 * 'G' + 16 * 'A'] = 'G';
-    h_codonMap[1 * 'G' + 4 * 'G' + 16 * 'G'] = 'G';
+    h_codonMap[1 * 'G' + 4 * 'G' + 16 * 'U' - 1365] = 'G';
+    h_codonMap[1 * 'G' + 4 * 'G' + 16 * 'C' - 1365] = 'G';
+    h_codonMap[1 * 'G' + 4 * 'G' + 16 * 'A' - 1365] = 'G';
+    h_codonMap[1 * 'G' + 4 * 'G' + 16 * 'G' - 1365] = 'G';
 
-    cudaMemcpyToSymbol(codonMap, &h_codonMap, sizeof(char) * 2048);
+    cudaMemcpyToSymbol(codonMap, &h_codonMap, sizeof(char) * 421);
 
     char* d_rna;
     cudaMalloc((void**) &d_rna, size);
